@@ -1,8 +1,8 @@
 baseURL = 'https://read.hhk.my.id/'
 languageCode = 'my'
-theme = 'reading'
+theme = 'Reading'
 title = 'Reads'
 
 [params]
-author = 'Hein Htet Kyaw'
-description = 'A collection of my favorite reads'
+    author = 'Hein Htet Kyaw'
+    description = 'A collection of my favorite reads'
