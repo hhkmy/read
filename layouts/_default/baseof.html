@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ block "title" . }}{{ .Title }}{{ end }}</title>
+  {{ partial "favicon" . }}
+  {{ with (templates.Defer (dict "key" "global")) }}
+    {{ partial "css.html" . }}
+  {{ end }}
+  {{ partial "mainjs" . }}
+</head>
+<body class="max-w-7xl w-full mx-auto bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 px-4 sm:px-6 lg:px-8">
+  {{ partial "header" . }}
+  {{ block "main" . }}{{ .Content }}{{ end }}
+  {{ partial "footer" . }}
+</body>
+</html>

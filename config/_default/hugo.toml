@@ -1,0 +1,39 @@
+baseURL = 'https://read.hhk.my.id/'
+languageCode = 'my-MM'
+title = 'Reader Channel'
+
+cleanDestinationDir = true
+
+[params]
+    author = 'Hein Htet Kyaw'
+    description = 'A collection of my favorite reads'
+
+[build]
+  [build.buildStats]
+    enable = true
+    disableIDs = true
+    disableTags = true
+  [[build.cachebusters]]
+    source = 'assets/notwatching/hugo_stats\.json'
+    target = 'css'
+  [[build.cachebusters]]
+    source = '(postcss|tailwind)\.config\.js'
+    target = 'css'
+[module]
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    disableWatch = true
+    source = 'hugo_stats.json'
+    target = 'assets/notwatching/hugo_stats.json'
+
+[frontmatter]
+  date = ['date', 'publishdate', 'pubdate', 'published', 'lastmod', 'modified']
+  expiryDate = ['expirydate', 'unpublishdate']
+  lastmod = [':git', 'lastmod', 'modified', 'date', 'publishdate', 'pubdate', 'published']
+  publishDate = ['publishdate', 'pubdate', 'published', 'date']
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'  

@@ -1,0 +1,64 @@
+{{ define "main" }}
+<div class="mx-auto px-4 py-12">
+  <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 mb-8">
+    {{ $coverPath := "/tags_covers/" }}
+    {{ $defaultCover := "/tags_covers/story.jpg" }}
+    {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+      {{ $img := printf "%s%s.jpg" $coverPath ($name | urlize) }}
+      <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}/" class="rounded p-3 text-center font-semibold relative overflow-hidden bg-gray-200 dark:bg-gray-700 group" style="background-image: url('{{ $img }}'), url('{{ $defaultCover }}'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-black opacity-75 pointer-events-none group-hover:opacity-60 transition" style="z-index:1;"></div>
+        <span class="relative text-white drop-shadow-lg select-none" style="z-index:2;">{{ printf "%s%s" (upper (substr $name 0 1)) (substr $name 1) }}</span>
+      </a>
+    {{ else }}
+      <div class="col-span-6 mx-auto rounded p-3 text-center font-semibold relative overflow-hidden bg-gray-200 dark:bg-gray-700 w-full">
+        <div class="absolute inset-0 bg-black opacity-75 pointer-events-none" style="z-index:1;"></div>
+        <span class="relative text-white drop-shadow-md select-none" style="z-index:2;">No tags found</span>
+      </div>
+    {{ end }}
+  </div>
+  <div class="mt-10 text-center text-lg font-semibold text-gray-700 dark:text-gray-200">
+    <p>Total posts: {{ len .Site.RegularPages }}</p>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Updated on {{ now.Format "January 2, 2006" }} | Showing the latest {{ len (first 10 .Site.RegularPages) }} posts</p>
+  </div>
+  <div class="flex items-center my-8 w-full max-w-4xl mx-auto px-2">
+    <span class="text-xl font-extrabold text-gray-800 dark:text-gray-100 whitespace-nowrap mr-4">Latest Posts</span>
+    <hr class="flex-grow border-gray-300 dark:border-gray-600">
+    <a href="/posts" class="flex items-center px-3 py-1 rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 font-semibold text-base shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+      <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+      Read all
+    </a>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-8">
+    {{ range first 10 .Site.RegularPages }}
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl border-0 group">
+        <a href="{{ .RelPermalink }}" class="block h-full">
+          <div class="relative">
+            <img class="w-full h-85 object-cover transition-transform duration-300 group-hover:scale-105" src="{{ .Params.cover }}" alt="{{ .Title }}">
+            <div class="absolute inset-0 transition-opacity duration-300 bg-gradient-to-t from-black/95 via-black/90 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full h-full flex flex-col p-6 z-10">
+              <div class="flex-grow"></div>
+              {{ partial "title.html" . }}
+              <p class="text-white text-lg mb-3 font-medium" style="text-shadow: 0 2px 12px #000, 0 1px 0 #000">{{ .Content | strings.Truncate 275 }}</p>
+              <div class="flex flex-wrap gap-2 mt-2">
+                {{ with .Params.tags }}
+                  {{ $tags := . }}
+                  {{ if not (reflect.IsSlice $tags) }}
+                    {{ $tags = (slice $tags) }}
+                  {{ end }}
+                  {{ range $tags }}
+                    <span class="inline-block bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 text-xs px-2 py-1 rounded font-medium">
+                      #{{ printf "%s%s" (upper (substr . 0 1)) (substr . 1) }}
+                    </span>
+                  {{ end }}
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    {{ else }}
+      <div class="text-gray-500">No articles found.</div>
+    {{ end }}
+  </div>  
+</div>
+{{ end }}

@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="mx-auto px-4 py-12">
+  <h1 class="text-4xl font-bold text-gray-800 dark:text-gray-100">{{ .Title }}</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+    {{ range .Pages }}
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition group">
+        <a href="{{ .RelPermalink }}" class="block">
+          <div class="relative">
+            <img src="{{ .Params.cover }}" alt="{{ .Title }}" class="w-full h-48 object-cover opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+            <div class="absolute inset-0 bg-black opacity-25 group-hover:opacity-0 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            {{ partial "title.html" . }}            
+            <p class="text-gray-600 dark:text-gray-400 text-sm">{{ .Summary | truncate 150 }}</p>
+          </div>
+        </a>
+      </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

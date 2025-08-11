@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@source "hugo_stats.json";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1100px;
+  --breakpoint-xl: 1440px;
+  --radius-4xl: 2rem;
+  --font-sans: "Myanmar", "sans-serif";
+}
+
+@font-face {
+  font-family: Myanmar;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("/fonts/Pyidaungsu.woff2") format("woff2");
+}
