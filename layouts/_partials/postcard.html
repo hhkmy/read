@@ -1,30 +1,32 @@
-{{ range .Paginator.Pages }}
-  <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl border-0 group">
-    <a href="{{ .RelPermalink }}" class="block h-full">
-      <div class="relative">
-        <img class="w-full h-85 object-cover transition-transform duration-300 group-hover:scale-105" src="{{ .Params.cover }}" alt="{{ .Title }}">
-        <div class="absolute inset-0 transition-opacity duration-300 bg-gradient-to-t from-black/95 via-black/90 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 w-full h-full flex flex-col p-6 z-10 text-gray-300 dark:text-gray-100">
-          <div class="flex-grow"></div>
-          {{ partial "title.html" . }}
-          {{ .Content | strings.Truncate 125 }}
-          <div class="flex flex-wrap gap-2 mt-3">
-            {{ with .Params.tags }}
-              {{ $tags := . }}
-              {{ if not (reflect.IsSlice $tags) }}
-                {{ $tags = (slice $tags) }}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-8">
+  {{ range .Paginator.Pages }}
+    <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl border-0 group">
+      <a href="{{ .RelPermalink }}" class="block h-full">
+        <div class="relative">
+          <img class="w-full h-85 object-cover transition-transform duration-300 group-hover:scale-105" src="{{ .Params.cover }}" alt="{{ .Title }}">
+          <div class="absolute inset-0 transition-opacity duration-300 bg-gradient-to-t from-black/95 via-black/90 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 w-full h-full flex flex-col p-6 z-10 text-gray-300 dark:text-gray-100">
+            <div class="flex-grow"></div>
+            {{ partial "title.html" . }}
+            {{ .Content | strings.Truncate 125 }}
+            <div class="flex flex-wrap gap-2 mt-3">
+              {{ with .Params.tags }}
+                {{ $tags := . }}
+                {{ if not (reflect.IsSlice $tags) }}
+                  {{ $tags = (slice $tags) }}
+                {{ end }}
+                {{ range first 5 $tags }}
+                  <span class="inline-block bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 text-xs px-2 py-1 rounded font-medium">
+                    #{{ printf "%s%s" (upper (substr . 0 1)) (substr . 1) }}
+                  </span>
+                {{ end }}
               {{ end }}
-              {{ range first 5 $tags }}
-                <span class="inline-block bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 text-xs px-2 py-1 rounded font-medium">
-                  #{{ printf "%s%s" (upper (substr . 0 1)) (substr . 1) }}
-                </span>
-              {{ end }}
-            {{ end }}
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-  </div>
-{{ else }}
-  <div class="text-gray-500">No articles found.</div>
-{{ end }}
+      </a>
+    </div>
+  {{ else }}
+    <div class="text-gray-500">No articles found.</div>
+  {{ end }}
+</div>

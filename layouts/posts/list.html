@@ -4,14 +4,8 @@
   <div class="mt-5 text-center text-lg font-semibold text-gray-700 dark:text-gray-200">
     <p>Total posts: {{ len .Site.RegularPages }}</p>
     <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Updated on {{ now.Format "January 2, 2006" }} | Showing the latest {{ len .Paginator.Pages }} posts</p>
-  </div>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-8">
-    {{ partial "postcard.html" . }}
   </div>  
-  {{ if .Paginator }}
-    <div class="mt-8">
-      {{ partial "pagination.html" . }}
-    </div>
-  {{ end }}
+  {{ partial "postcard.html" . }}
+  {{ partial "pagination.html" . }}
 </div>
 {{ end }}
