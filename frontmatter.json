@@ -9,7 +9,7 @@
         {
           "title": "date",
           "name": "date",
-          "type": "string"
+          "type": "datetime"
         },
         {
           "title": "title",
@@ -17,9 +17,9 @@
           "type": "string"
         },
         {
-          "title": "recorded",
-          "name": "recorded",
-          "type": "boolean"
+          "title": "categories",
+          "name": "categories",
+          "type": "categories"
         },
         {
           "title": "tags",
@@ -32,8 +32,8 @@
           "type": "string"
         },
         {
-          "title": "fmContentType",
-          "name": "fmContentType",
+          "title": "preview",
+          "name": "preview",
           "type": "string"
         }
       ]
@@ -41,23 +41,10 @@
   ],
   "frontMatter.framework.id": "hugo",
   "frontMatter.content.publicFolder": "static",
-  "frontMatter.preview.host": "http://localhost:1313",
   "frontMatter.content.pageFolders": [
-    {
-      "title": "archetypes",
-      "path": "[[workspace]]/archetypes"
-    },
     {
       "title": "posts",
       "path": "[[workspace]]/content/posts"
-    },
-    {
-      "title": "httpx-0.13.3.dist-info",
-      "path": "[[workspace]]/venv/lib/python3.11/site-packages/httpx-0.13.3.dist-info"
-    },
-    {
-      "title": "httpcore-0.9.1.dist-info",
-      "path": "[[workspace]]/venv/lib/python3.11/site-packages/httpcore-0.9.1.dist-info"
     }
   ],
   "frontMatter.git.enabled": true

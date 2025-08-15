@@ -1,7 +1,11 @@
 +++
-date = '{{ .Date }}'
+date = "{{ .Date }}"
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 recorded = false
-tags = ''
-cover = ''
+description = ""
+categories = ""
+tags = ""
+cover = ""
+preview = ""
+slug = ''
 +++

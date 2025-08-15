@@ -4,9 +4,12 @@ title = 'Reader Channel'
 
 cleanDestinationDir = true
 
+[pagination]
+  pagerSize = 10
+
 [params]
-    author = 'Hein Htet Kyaw'
-    description = 'A collection of my favorite reads'
+  author = 'Hein Htet Kyaw'
+  description = 'A collection of my favorite reads'
 
 [build]
   [build.buildStats]
@@ -36,4 +39,4 @@ cleanDestinationDir = true
 
 [taxonomies]
   category = 'categories'
-  tag = 'tags'  
+  tag = 'tags'
