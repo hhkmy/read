@@ -1,14 +1,17 @@
 <!-- Categories Section -->
   <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 mb-8">
+    {{ $categories := slice }}
     {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
-      <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}/" class="rounded p-3 text-center font-semibold relative overflow-hidden bg-gray-200 dark:bg-gray-700 group">
-        <div class="absolute inset-0 bg-black opacity-75 pointer-events-none group-hover:opacity-60 transition" style="z-index:1;"></div>
-        <span class="relative text-white drop-shadow-lg select-none" style="z-index:2;">{{ printf "%s%s" (upper (substr $name 0 1)) (substr $name 1) }}</span>
+        {{ $categories = $categories | append $name }}
+    {{ end }}
+    {{ $categories = $categories | shuffle | first 12 }}
+    {{ range $categories }}
+      <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}/" class="rounded p-3 text-center font-semibold relative overflow-hidden bg-gray-200 dark:bg-gray-700 group">
+        <span class="relative text-gray-800 dark:text-gray-100 drop-shadow-lg select-none">{{ printf "%s%s" (upper (substr . 0 1)) (substr . 1) }}</span>
       </a>
     {{ else }}
       <div class="col-span-6 mx-auto rounded p-3 text-center font-semibold relative overflow-hidden bg-gray-200 dark:bg-gray-700 w-full">
-        <div class="absolute inset-0 bg-black opacity-75 pointer-events-none" style="z-index:1;"></div>
-        <span class="relative text-white drop-shadow-md select-none" style="z-index:2;">No categories found</span>
+        <span class="relative text-gray-800 dark:text-gray-100 drop-shadow-md select-none">No categories found</span>
       </div>
     {{ end }}
   </div>
