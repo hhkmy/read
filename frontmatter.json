@@ -35,6 +35,16 @@
           "title": "preview",
           "name": "preview",
           "type": "string"
+        },
+        {
+          "title": "recorded",
+          "name": "recorded",
+          "type": "boolean"
+        },
+        {
+          "title": "description",
+          "name": "description",
+          "type": "string"
         }
       ]
     }
