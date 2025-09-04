@@ -1,17 +1,23 @@
-<!-- Categories Section -->
-  <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 mb-8">
-    {{ $categories := slice }}
-    {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
-        {{ $categories = $categories | append $name }}
-    {{ end }}
-    {{ $categories = $categories | shuffle | first 12 }}
-    {{ range $categories }}
-      <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}/" class="rounded p-3 text-center font-semibold relative overflow-hidden bg-gray-200 dark:bg-gray-700 group">
-        <span class="relative text-gray-800 dark:text-gray-100 drop-shadow-lg select-none">{{ printf "%s%s" (upper (substr . 0 1)) (substr . 1) }}</span>
-      </a>
-    {{ else }}
-      <div class="col-span-6 mx-auto rounded p-3 text-center font-semibold relative overflow-hidden bg-gray-200 dark:bg-gray-700 w-full">
-        <span class="relative text-gray-800 dark:text-gray-100 drop-shadow-md select-none">No categories found</span>
-      </div>
-    {{ end }}
+<div class="grid grid-cols-2 lg:grid-cols-6 gap-3 mb-8" id="random-categories-container">
+  <!-- Loading state (shown initially) -->
+  <div class="col-span-6 mx-auto rounded p-3 text-center font-semibold relative overflow-hidden bg-gray-200 dark:bg-gray-700 w-full">
+    <span class="relative text-gray-800 dark:text-gray-100 drop-shadow-md select-none">Loading categories...</span>
   </div>
+</div>
+
+<!-- Hugo data generation (hidden) -->
+<script>
+  window.allCategoriesData = [
+    {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+      {
+        name: {{ $name | jsonify }},
+        url: "/categories/{{ $name | urlize }}/",
+        displayName: {{ (printf "%s%s" (upper (substr $name 0 1)) (substr $name 1)) | jsonify }},
+        count: {{ $taxonomy.Count }}
+      },
+    {{ end }}
+  ];
+</script>
+
+{{ $js := resources.Get "js/random-categories.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
